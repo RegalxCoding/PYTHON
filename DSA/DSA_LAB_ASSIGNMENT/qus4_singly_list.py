@@ -30,17 +30,13 @@ class SinglyLinkedList:
             self.addNodeAtStart(data)
         else:
             current = self.head
-            count = 1
-            while current is not None and count < pos - 1:
-                current = current.next
-                count += 1
-            if current is None:
-                print("Position out of bounds!")
-            else:
-                newNode.next = current.next
-                current.next = newNode
-                if newNode.next is None:
-                    self.tail = newNode
+            for _ in range(pos-1):
+                if not current:
+                    print("pos out of bound")
+                    return
+                current=current.next
+            newNode.next=current.next
+            current.next=newNode
 
     def deleteAtStart(self):
         if self.head is None:
@@ -64,20 +60,22 @@ class SinglyLinkedList:
             self.tail = current
 
     def deleteAtPosition(self, pos):
-        if pos == 1:  # At the beginning
+        if pos == 0:  # At the beginning
             self.deleteAtStart()
+            return
         else:
             current = self.head
-            count = 1
-            while current is not None and count < pos - 1:
-                current = current.next
-                count += 1
-            if current is None or current.next is None:
-                print("Position out of bounds!")
-            else:
-                current.next = current.next.next
-                if current.next is None:
-                    self.tail = current
+            for _ in range(pos-1):
+                if not current.next:
+                   print("pos out of bound")
+                   return
+                current=current.next
+            if current.next.next==None:
+                current.next=None
+                return
+            temp=current.next.next
+            current.next=temp
+            
 
     def traverse(self):
         current = self.head

@@ -28,25 +28,22 @@ class DoublyLinkedList:
             self.tail = newNode
 
     def insertAtPosition(self, data, pos):
+        newNode=Node(data)
         if pos == 1:
             self.insertAtBeginning(data)
         else:
-            newNode = Node(data)
-            current = self.head
-            count = 1
-            while current is not None and count < pos - 1:
-                current = current.next
-                count += 1
-            if current is None:
-                print("Position out of bounds!")
-            else:
-                newNode.next = current.next
-                newNode.prev = current
-                if current.next:
-                    current.next.prev = newNode
-                current.next = newNode
-                if newNode.next is None:
-                    self.tail = newNode
+            current=self.head
+            for _ in range(pos-1):
+               if not current:
+                   print("pos out of bound")
+                   return
+               current=current.next
+            temp=current.next
+            current.next=newNode
+            temp.prev=newNode
+            newNode.next=temp
+            newNode.prev=current
+            
 
     def deleteAtBeginning(self):
         if self.head is None:
@@ -68,23 +65,22 @@ class DoublyLinkedList:
             self.tail.next = None
 
     def deleteAtPosition(self, pos):
-        if pos == 1:
+        if pos == 0:
             self.deleteAtBeginning()
         else:
-            current = self.head
-            count = 1
-            while current is not None and count < pos:
-                current = current.next
-                count += 1
-            if current is None:
-                print("Position out of bounds!")
-            else:
-                if current.next:
-                    current.next.prev = current.prev
-                if current.prev:
-                    current.prev.next = current.next
-                if current == self.tail:
-                    self.tail = current.prev
+            current=self.head
+            for _ in range(pos-1):
+                if not current.next:
+                    print("pos out of bound")
+                    return
+                current=current.next
+            if current.next.next==None:
+                current.next=None
+                return
+            temp=current.next.next
+            current.next=temp
+            temp.prev=current
+            
 
     def traverse(self):
         if self.head is None:

@@ -64,11 +64,25 @@ class SinglyLinkedList:
                 current = current.next
             current.next = None
             self.tail = current
+    
+    def reverse_list(self):
+        if self.head is None:
+            print("list is empty")
+            return
+        current=self.head
+        prev=None
+        while current:
+            nextNode=current.next
+            current.next=prev
+            prev=current
+            current=nextNode
+        self.head=prev
+        print("list reverse successfully")
 
 # User interaction
 slist = SinglyLinkedList()
 while True:
-    print("\nOptions:\n1. Add Node at End\n2. Add Node at Start\n3. Delete First Node\n4. Delete Last Node\n5. Display\n6. Exit")
+    print("\nOptions:\n1. Add Node at End\n2. Add Node at Start\n3. Delete First Node\n4. Delete Last Node\n5. Display\n6. reverse")
     choice = int(input("Enter your choice: "))
     
     if choice == 1:
@@ -84,7 +98,6 @@ while True:
     elif choice == 5:
         slist.display()
     elif choice == 6:
-        print("Exiting...")
-        break
+        slist.reverse_list()
     else:
         print("Invalid choice. Please try again.")
